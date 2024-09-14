@@ -29,6 +29,10 @@ exports.editProduct = async (req, res) => {
     const { id } = req.params;
     const updates = req.body;
 
+    if(!updates.image.split("/").includes('Naseem')){
+      updates.image = await uploadFile(updates.image,"products");
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(id, updates, { new: true });
 
     if (!updatedProduct) {

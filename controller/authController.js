@@ -10,9 +10,12 @@ exports.adminLogin = async (req, res) => {
       try {
 
         const token = jwt.sign(
-          { email: adminEmail },
+          { 
+            email: adminEmail,
+            role: 'admin'
+          },
           process.env.JWT_SECRET, 
-          { expiresIn: '7d' } 
+          { expiresIn: '60s' } 
         );
   
         return res.status(200).json({ status:true,message: 'Login successful', token });
@@ -22,4 +25,4 @@ exports.adminLogin = async (req, res) => {
     } else {
       return res.json({ status:false, error: 'Invalid email or password' });
     }
-  };
+};

@@ -5,6 +5,7 @@ exports.adminLogin = async (req, res) => {
   
     const adminEmail = process.env.ADMIN_EMAIL;
     const adminPassword = process.env.ADMIN_PASSWORD;
+    const jwtExpirationTime = process.env.JWT_EXPIRATION_TIME;
 
     if (email === adminEmail && password === adminPassword) {
       try {
@@ -15,7 +16,7 @@ exports.adminLogin = async (req, res) => {
             role: 'admin'
           },
           process.env.JWT_SECRET, 
-          { expiresIn: '60s' } 
+          { expiresIn: jwtExpirationTime } 
         );
   
         return res.status(200).json({ status:true,message: 'Login successful', token });
